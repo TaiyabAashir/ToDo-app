@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script>
+    <title>ToDo app</title>
+</head>
+<body>
+    <main>
+        <section class="create-task">
+            <h2>Add new task</h2>
+            <div class="add-main-task">
+                <input id="create-main-task" type="text" placeholder="Enter the task you have to do...">
+                <input type="date">
+                <button id="addsubtaskbutton">
+                    Add subtasks
+                </button>
+            </div>
+            <div class="subtasks-container">
+                <!-- Subtasks to be dynamically added -->
+                <div class="add-sub-task">
+                    <input id="subtask1" type="text" placeholder="Enter sub task and the time...">
+                    <input type="time">
+                    <button class="add-more-button">
+                        Add more
+                    </button>
+                </div>
+                <div class="add-sub-task">
+                    <input id="subtask2" type="text" placeholder="Enter sub task and the time...">
+                    <input type="time">
+                    <button class="add-more-button">
+                        Add more
+                    </button>
+                </div>
+            </div>
+            <button id="done">
+                Done
+            </button>
+        </section>
+        <section class="view-tasks">
+            <header>
+                <span class="heading">Tasks for <span id="view-date">today</span></span><input type="date">
+
+            </header>
+            <div class="tasks-list">
+                <div class="main-task">
+                    <div class="task">
+                        <input type="checkbox">
+                        <div class="task-text">
+                            This is an example task.
+                        </div>
+                        <div class="delete-button">
+                            <button>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="create-sub-task">
+                        <input type="checkbox">
+                        <div class="task-text">
+                            This is an example sub task.
+                        </div>
+                        <div class="delete-button">
+                            <button>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="create-sub-task">
+                        <input type="checkbox">
+                        <div class="task-text">
+                            This is an example sub task.
+                        </div>
+                        <div class="delete-button">
+                            <button>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-task">
+                    <div class="task">
+                        <input type="checkbox">
+                        <div class="task-text">
+                            This is an example task.
+                        </div>
+                        <div class="delete-button">
+                            <button>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="create-sub-task">
+                        <input type="checkbox">
+                        <div class="task-text">
+                            This is an example sub task.
+                        </div>
+                        <div class="delete-button">
+                            <button>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="create-sub-task">
+                        <input type="checkbox">
+                        <div class="task-text">
+                            This is an example sub task.
+                        </div>
+                        <div class="delete-button">
+                            <button>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+            </div>
+
+        </section>
+    </main>
+</body>
+</html>
