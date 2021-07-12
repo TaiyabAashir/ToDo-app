@@ -1,16 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <script src="index.js" defer></script>
-    <title>ToDo app</title>
+    <meta charset='utf-8'>
+    <title>ToDo Reloaded</title>
+    <link rel='stylesheet' href='main.css'>
+    <script src='index.js' defer></script>
 </head>
 <body>
+    <section class="top-section">
+    <div class="top-nav-bar">
+        <div>&nbsp;Hello User</div>
+        <div>
+            <input type="text" id="search" placeholder="Search"> 
+        </div>
+        <div class="add-task-div">
+            <button class="add-task-button">
+                <span>
+                    <svg width="13" height="13">
+                       <path d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z" fill="currentColor" fill-rule="evenodd"></path>
+                    </svg>
+                 </span>
+                 Add Task
+            </button>
+        </div>
+    </div>
+    
     <main>
+        <div class='heading'>
+            <h1>
+                ToDo Reloaded
+            </h1>
+        </div>
+        <div class="options-row">
+            <div>
+                <span class="date-filter">Tasks for <span id="view-date">today</span></span><input id="filter-date" type="date">
+            </div>
+            <div class="right-align">
+                <div>
+                    <button class="button-show-all">
+                        Show All Tasks
+                    </button>
+                </div>
+                <div class="sort-button-div">
+                    <button>
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M16.854 5.146l3 3a.502.502 0 01-.708.708L17 6.707V18.5a.5.5 0 01-1 0V6.707l-2.146 2.147a.502.502 0 01-.708-.708l3-3a.502.502 0 01.708 0zM7.5 5a.5.5 0 01.5.5v11.791l2.146-2.145a.502.502 0 01.708.708l-3 3a.502.502 0 01-.708 0l-3-3a.502.502 0 01.708-.708L7 17.293V5.5a.5.5 0 01.5-.5z"></path>
+                        </svg>
+                        <span>Sort</span>&nbsp;
+                        <select>
+                            <option value="none"></option>
+                            <option value="alphabetical">Alphabetical</option>
+                            <option value="reverse-alphabetical">Reverse Alphabetical</option>
+                            <option value="inc-date">Increasing date</option>
+                            <option value="dec-date">Decreasing date</option>
+
+
+                        </select>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="tasks-list">
+            <div class="main-task">
+                <div class="task">
+                    <input type="checkbox">
+                    <div class="task-text">
+                        This is an example task.
+                    </div>
+                    <div class="delete-button">
+                        <button>
+                            <img src='./del.svg'></img>
+                        </button>
+                    </div>
+                </div>
+                <div class="create-sub-task">
+                    <input type="checkbox">
+                    <div class="task-text">
+                        This is an example sub task.
+                    </div>
+                    <div class="delete-button">
+                        <span>Time left:4hrs</span>
+                        <button>
+                            <img src='./del.svg'></img>
+                        </button>
+                    </div>
+                </div>
+                <div class="create-sub-task">
+                    <input type="checkbox">
+                    <div class="task-text">
+                        This is an example sub task.
+                    </div>
+                    <div class="delete-button">
+                        <button>
+                            <img src='./del.svg'></img>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="main-task" id="main-task-1">
+                <div class="task">
+                    <input type="checkbox">
+                    <div class="task-text">
+                        This is an example task.
+                    </div>
+                    <div class="delete-button">
+                        <button>
+                            <img src='./del.svg'></img>
+                        </button>
+                    </div>
+                </div>
+                <div class="create-sub-task">
+                    <input type="checkbox">
+                    <div class="task-text">
+                        This is an example sub task.
+                    </div>
+                    <div class="delete-button">
+                        <button>
+                            <img src='./del.svg'></img>
+                        </button>
+                    </div>
+                </div>
+                <div class="create-sub-task">
+                    <input type="checkbox">
+                    <div class="task-text">
+                        This is an example sub task.
+                    </div>
+                    <div class="delete-button">
+                        <button>
+                            <img src='./del.svg'></img>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <button class="add-task-button">
+                <span class="icon_add" aria-hidden="true">
+                    <svg width="13" height="13">
+                       <path d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z" fill="currentColor" fill-rule="evenodd"></path>
+                    </svg>
+                 </span>
+                 Add Task
+            </button>
+    </main>
+
+    <div class="modal">
         <section class="create-task">
-            <h2>Add new task</h2>
+            <h2>Add New Task</h2>
             <div class="add-main-task">
                 <input id="create-main-task" type="text" placeholder="Enter the task you have to do...">
                 <input type="date">
@@ -20,107 +155,25 @@
             </div>
             <div class="subtasks-container">
                 <!-- Subtasks to be dynamically added -->
-                <div class="add-sub-task">
+                <!-- <div class="add-sub-task">
                     <input id="subtask1" type="text" placeholder="Enter sub task and the time...">
                     <input type="time">
                     <button class="add-more-button">
                         Add more
                     </button>
-                </div>
-                <div class="add-sub-task">
-                    <input id="subtask2" type="text" placeholder="Enter sub task and the time...">
-                    <input type="time">
-                    <button class="add-more-button">
-                        Add more
-                    </button>
-                </div>
+                </div> -->
+                
             </div>
-            <button id="done">
-                Done
+            <div class="button-container">
+                <button id="reset">
+                    Reset
+                </button>
+                <button id="done">
+                    Submit
+            </div>
+            
             </button>
         </section>
-        <section class="view-tasks">
-            <header>
-                <span class="heading">Tasks for <span id="view-date">today</span></span><input type="date">
-
-            </header>
-            <div class="tasks-list">
-                <div class="main-task">
-                    <div class="task">
-                        <input type="checkbox">
-                        <div class="task-text">
-                            This is an example task.
-                        </div>
-                        <div class="delete-button">
-                            <button>
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                    <div class="create-sub-task">
-                        <input type="checkbox">
-                        <div class="task-text">
-                            This is an example sub task.
-                        </div>
-                        <div class="delete-button">
-                            <button>
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                    <div class="create-sub-task">
-                        <input type="checkbox">
-                        <div class="task-text">
-                            This is an example sub task.
-                        </div>
-                        <div class="delete-button">
-                            <button>
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="main-task">
-                    <div class="task">
-                        <input type="checkbox">
-                        <div class="task-text">
-                            This is an example task.
-                        </div>
-                        <div class="delete-button">
-                            <button>
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                    <div class="create-sub-task">
-                        <input type="checkbox">
-                        <div class="task-text">
-                            This is an example sub task.
-                        </div>
-                        <div class="delete-button">
-                            <button>
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                    <div class="create-sub-task">
-                        <input type="checkbox">
-                        <div class="task-text">
-                            This is an example sub task.
-                        </div>
-                        <div class="delete-button">
-                            <button>
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-            </div>
-
-        </section>
-    </main>
+    </div>
 </body>
 </html>

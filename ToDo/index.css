@@ -1,7 +1,7 @@
 .create-task {
   margin-bottom: 80px;
   min-height: 300px;
-  width: 600px;
+  width: 900px;
   border-radius: 20px;
   border-style: solid;
   display: flex;
@@ -9,14 +9,15 @@
   padding-left: 1rem;
 }
 
-#done {
+.button-container {
   margin-top: auto;
   margin-bottom: 2rem;
   width: fit-content;
 }
 
 .subtasks-container {
-  visibility: visible;
+  display: none;
+  margin-bottom: 20px;
 }
 /* #done{
     margin-left: auto;
@@ -52,27 +53,28 @@
   font-weight: bold;
 }
 .main-task {
-  max-width: 30rem;
+  width: 30rem;
   margin-top: 20px;
   border-style: solid;
   padding: 10px;
   border-radius: 10px;
+  margin-left: 20px;
 }
 .main-task:hover {
   background-color: blanchedalmond;
 }
 .add-more-button {
-  visibility: collapse;
+  display: none;
 }
 /* .add-more-button:last-of-type{
     visibility: visible;
 } */
-.add-sub-task:last-child > .add-more-button {
-  /* background-color: #000; */
-  visibility: visible;
-}
+/* .add-sub-task:last-child > .add-more-button {
+  /* background-color: #000; 
+  display: initial;
+} */
 input[type="text"] {
-  width: 20rem;
+  width: 35rem;
   height: 2rem;
   margin-right: 5px;
   border-style: solid;
@@ -90,4 +92,9 @@ input[type="text"]:focus::placeholder {
 }
 .add-sub-task {
   margin-left: 2rem;
+}
+.tasks-list{
+  display: flex;
+  flex-wrap: wrap;
+
 }
