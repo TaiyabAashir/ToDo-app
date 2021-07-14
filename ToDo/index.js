@@ -74,10 +74,12 @@ filterDate.value = (new Date()).toISOString().split('T')[0];
 //Handling checkboxes
 function checkboxHandle(event) {
     console.log(this.checked, this.previousElementSibling);
-    if (this.checked)
+    if (this.checked) {
         this.previousElementSibling.style.textDecoration = "line-through";
-    else
+    }
+    else {
         this.previousElementSibling.style.textDecoration = "initial";
+    }
 }
 //Reset input
 function reset() {
@@ -103,13 +105,11 @@ document.querySelectorAll('.add-task-button').forEach((button) => {
 });
 //Close modal on outside click
 window.onclick = function (event) {
-    console.log(event);
     let eventTarget = event.target;
     if (eventTarget == modal || eventTarget.id == 'close-modal' || event.target.id == 'close-modal-button') {
         modal.style.display = "none";
     }
     if (eventTarget.id == "minus" || eventTarget.id === 'remove-subtask-button') {
-        console.log(eventTarget.closest('div'));
         removeSubtask(eventTarget);
     }
 };
@@ -118,6 +118,7 @@ let editElementId = null;
 if (!localStorage.currentId)
     localStorage.currentId = 2; //Update it on HTML change
 document.querySelector('form').addEventListener('submit', (event) => {
+    event.preventDefault();
     let objStorage = {};
     let mt = document.querySelector("#create-main-task");
     objStorage['subtask'] = Array.from(document.querySelectorAll('.create-subtask-element')).map(elem => { return [elem.value, elem.parentElement.querySelector('.subtask-time').value]; });
@@ -135,6 +136,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
     modal.style.display = "none";
 });
 function filterElementsAndShow() {
+    undoShowAll();
     document.querySelector('.tasks-list').innerHTML = "";
     let keyList = Object.keys(localStorage).filter((key) => key != "currentId");
     console.log(sortingFunction);
@@ -174,7 +176,6 @@ function showTask(objStorage) {
             ${value[0]}
         </div>
         <div class="delete-button">
-        ${value[1]}
         <button>
              <img src='./del.svg'></img>
           </button>
@@ -213,16 +214,22 @@ function populateForm(id) {
     mt.value = objStorage['mt'];
     mt.nextElementSibling.value = objStorage['date'];
     let numOfSubtasks = objStorage['subtask'].length;
+    console.log('Number of subtasks in edit', numOfSubtasks);
     if (numOfSubtasks) {
         addSubclassButton.click();
         numOfSubtasks--;
+    }
+    else {
+        addSubclassButton.style.display = "initial";
     }
     while (numOfSubtasks--)
         addMoreButton.click();
     let subElems = document.querySelectorAll('.create-subtask-element');
     console.log(subElems);
-    for (let i = 0; i < subElems.length; i++)
+    for (let i = 0; i < subElems.length; i++) {
         subElems[i].value = objStorage['subtask'][i][0];
+        subElems[i].nextElementSibling.value = objStorage['subtask'][i][1];
+    }
 }
 filterElementsAndShow();
 //Adding search functionality
@@ -231,6 +238,7 @@ document.querySelector('#search').addEventListener('keyup', function (event) {
         filterBySearch(this.value);
 });
 function filterBySearch(searchString) {
+    undoShowAll();
     document.querySelector('.tasks-list').innerHTML = "";
     let keyList = Object.keys(localStorage).filter((key) => key != "currentId");
     console.log(sortingFunction);
@@ -272,9 +280,11 @@ function deleteElement(imgElem, id) {
 //All task
 document.querySelector('.button-show-all').addEventListener("click", function (event) { showAll(this); });
 function showAll(showAllButton) {
+    console.log("Show toggle");
     document.querySelector('.tasks-list').innerHTML = "";
-    if (showAllButton.classList.contains('show-all-active'))
+    if (showAllButton.classList.contains('show-all-active')) {
         filterElementsAndShow();
+    }
     else {
         let keyList = Object.keys(localStorage).filter((key) => key != "currentId");
         console.log(sortingFunction);
@@ -287,8 +297,14 @@ function showAll(showAllButton) {
             showTask(elem);
         }
         currentView = "show-all";
+        showAllButton.classList.toggle('show-all-active');
     }
-    showAllButton.classList.toggle('show-all-active');
+}
+function undoShowAll() {
+    let showAllButton = document.querySelector('.button-show-all');
+    if (showAllButton.classList.contains('show-all-active')) {
+        showAllButton.classList.remove('show-all-active');
+    }
 }
 //Sort function
 document.querySelector("select").addEventListener('change', function () {
@@ -313,7 +329,8 @@ document.querySelector("select").addEventListener('change', function () {
                 return 0;
             return 1;
         };
-    else if (this.value == "inc-date")
+    else if (this.value == "inc-date") {
+        currentView = "show-all";
         sortingFunction = (x, y) => {
             let x1 = JSON.parse(localStorage[x]).date, y1 = JSON.parse(localStorage[y]).date;
             if (x1 > y1)
@@ -322,7 +339,9 @@ document.querySelector("select").addEventListener('change', function () {
                 return 0;
             return -1;
         };
-    else if (this.value == "dec-date")
+    }
+    else if (this.value == "dec-date") {
+        currentView = "show-all";
         sortingFunction = (x, y) => {
             let x1 = JSON.parse(localStorage[x]).date, y1 = JSON.parse(localStorage[y]).date;
             if (x1 > y1)
@@ -331,13 +350,16 @@ document.querySelector("select").addEventListener('change', function () {
                 return 0;
             return 1;
         };
+    }
     reloadList();
 });
 function reloadList() {
-    if (currentView == "filter")
+    console.log("Reloading List");
+    if (currentView == "filter") {
         filterElementsAndShow();
+    }
     if (currentView == "show-all") {
-        document.querySelector('.button-show-all').click();
+        undoShowAll();
         document.querySelector('.button-show-all').click();
     }
     if (currentView == 'search')
@@ -369,8 +391,9 @@ function showTaskHighlight(objStorage, searchString) {
     addElem.firstElementChild.firstElementChild.after(checkbox);
     objStorage['subtask'].forEach((value) => {
         let highlight = `${value[0]}`;
-        if (highlight.indexOf(searchString) != -1)
+        if (highlight.indexOf(searchString) != -1) {
             highlight = highlight.split(searchString).join("<span style='background-color: yellow;'>" + searchString + "</span>");
+        }
         const subtaskelem = `
         <div class="task-text">
             ${highlight}
@@ -394,6 +417,7 @@ function showTaskHighlight(objStorage, searchString) {
     document.querySelector('.tasks-list').append(addElem);
     checkbox.addEventListener("click", checkboxHandle);
 }
+//Min date validation
 (_a = document.getElementById("new-task-date")) === null || _a === void 0 ? void 0 : _a.setAttribute('min', (new Date()).toISOString().split('T')[0]);
 //Close modal
 // document.querySelector("#close-modal").addEventListener

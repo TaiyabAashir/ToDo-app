@@ -81,10 +81,12 @@ function checkboxHandle(this:HTMLInputElement,event:MouseEvent)
 {
     
     console.log(this.checked,this.previousElementSibling);
-    if(this.checked)
+    if(this.checked){
         (this.previousElementSibling! as HTMLElement).style.textDecoration="line-through";
-    else
+    }
+    else{
         (this.previousElementSibling! as HTMLElement).style.textDecoration="initial";
+    }
 
 }
 
@@ -109,8 +111,6 @@ document.querySelectorAll('.add-task-button').forEach((button)=>{
             addSubclassButton.style.display="initial";
             for(let childElement of subtasksContainer.children)
                 childElement.remove();
-            
-
         }
 
         modal.style.display="initial";
@@ -118,22 +118,20 @@ document.querySelectorAll('.add-task-button').forEach((button)=>{
 })
 //Close modal on outside click
 window.onclick = function(event) {
-    console.log(event);
     let eventTarget=event.target! as HTMLElement;
     if (eventTarget == modal || (eventTarget as HTMLElement).id=='close-modal'||(event.target as HTMLElement).id=='close-modal-button') {
       modal.style.display = "none";
     }
     if(eventTarget.id=="minus" || eventTarget.id==='remove-subtask-button'){
-        console.log(eventTarget.closest('div'));
         removeSubtask(eventTarget);
-
     }
   }
 //on submit store in local storage check if edit true
 let editElementId:any=null;
 if(!localStorage.currentId)localStorage.currentId=2;//Update it on HTML change
 
-document.querySelector('form')!.addEventListener('submit',(event)=>{    
+document.querySelector('form')!.addEventListener('submit',(event)=>{   
+    event.preventDefault(); 
     let objStorage:objStorage={};
     let mt:HTMLInputElement=document.querySelector("#create-main-task")!;
     objStorage['subtask']=Array.from(document.querySelectorAll('.create-subtask-element') as NodeListOf<HTMLInputElement>).map(elem=>{return [elem.value,(elem.parentElement!.querySelector('.subtask-time') as HTMLInputElement).value]})
@@ -149,13 +147,13 @@ document.querySelector('form')!.addEventListener('submit',(event)=>{
     editElementId=null;
     reset();
     modal.style.display="none";
-
 });
 
 function filterElementsAndShow()
 {
-    document.querySelector('.tasks-list')!.innerHTML="";
+    undoShowAll();
 
+    document.querySelector('.tasks-list')!.innerHTML="";
     let keyList=Object.keys(localStorage).filter((key)=>key!="currentId");
     console.log(sortingFunction)
     keyList.sort(sortingFunction);
@@ -197,7 +195,6 @@ function showTask(objStorage:objStorage)
             ${value[0]}
         </div>
         <div class="delete-button">
-        ${value[1]}
         <button>
              <img src='./del.svg'></img>
           </button>
@@ -232,23 +229,30 @@ function editElement(event:MouseEvent,id:string){
     (document.querySelector('.add-task-button') as HTMLButtonElement).click();
 }
 function populateForm(id:string){
-    let objStorage=JSON.parse(localStorage[id]);
+    let objStorage:objStorage=JSON.parse(localStorage[id]);
     let mt:HTMLInputElement=document.querySelector("#create-main-task")!;
     document.querySelector('.subtasks-container')!.innerHTML="";
-    mt.value=objStorage['mt'];
-    (mt.nextElementSibling as HTMLInputElement).value=objStorage['date'];
-    let numOfSubtasks=objStorage['subtask'].length;
+    mt.value=objStorage['mt']!;
+    (mt.nextElementSibling as HTMLInputElement).value=objStorage['date']!;
+    let numOfSubtasks=objStorage['subtask']!.length;
+    console.log('Number of subtasks in edit',numOfSubtasks);
+    
     if(numOfSubtasks){
         addSubclassButton.click();
         numOfSubtasks--;
+    }
+    else{
+        addSubclassButton.style.display="initial";
     }
     while(numOfSubtasks--)
         addMoreButton.click();
     
     let subElems:NodeListOf<HTMLInputElement>=document.querySelectorAll('.create-subtask-element');
     console.log(subElems);
-    for(let i=0;i<subElems.length;i++)
-        subElems[i].value=objStorage['subtask'][i][0];
+    for(let i=0;i<subElems.length;i++){
+        subElems[i].value=objStorage['subtask']![i][0];
+        (subElems[i].nextElementSibling as HTMLInputElement).value=objStorage['subtask']![i][1];
+    }
 
 }
 
@@ -262,6 +266,8 @@ document.querySelector('#search')!.addEventListener('keyup',function(this:HTMLIn
 });
 function filterBySearch(searchString:string)
 {
+    undoShowAll();
+    
     document.querySelector('.tasks-list')!.innerHTML="";
     let keyList=Object.keys(localStorage).filter((key)=>key!="currentId");
     console.log(sortingFunction)
@@ -306,9 +312,11 @@ function deleteElement(imgElem:HTMLElement,id:string){
 document.querySelector('.button-show-all')!.addEventListener("click",function (this:HTMLButtonElement,event){showAll(this)})
 function showAll(showAllButton:HTMLButtonElement)
 {
+    console.log("Show toggle")
     document.querySelector('.tasks-list')!.innerHTML="";
-    if(showAllButton.classList.contains('show-all-active'))
+    if(showAllButton.classList.contains('show-all-active')){
         filterElementsAndShow();
+    }
     else
     {
         
@@ -322,10 +330,18 @@ function showAll(showAllButton:HTMLButtonElement)
             showTask(elem);
         }
         currentView="show-all";
+        showAllButton.classList.toggle('show-all-active');
+
     }
-    showAllButton.classList.toggle('show-all-active');
+}
+function undoShowAll(){
+    let showAllButton=document.querySelector('.button-show-all') as HTMLButtonElement;
+    if(showAllButton.classList.contains('show-all-active')){
+        showAllButton.classList.remove('show-all-active');
+    }
 
 }
+
 
 //Sort function
 document.querySelector("select")!.addEventListener('change',function(){
@@ -350,7 +366,8 @@ document.querySelector("select")!.addEventListener('change',function(){
                 return 0;
             return 1;
         }
-    else if(this.value=="inc-date")
+    else if(this.value=="inc-date"){
+        currentView="show-all";
         sortingFunction=(x,y)=>{
             let x1=JSON.parse(localStorage[x]).date,y1=JSON.parse(localStorage[y]).date;
             if(x1>y1)
@@ -359,23 +376,32 @@ document.querySelector("select")!.addEventListener('change',function(){
                 return 0;
             return -1;
         }
-    else if(this.value=="dec-date")
-    sortingFunction=(x,y)=>{
-        let x1=JSON.parse(localStorage[x]).date,y1=JSON.parse(localStorage[y]).date;
-        if(x1>y1)
-            return -1;
-        if(x1==y1)
-            return 0;
-        return 1;
+    }
+
+    else if(this.value=="dec-date"){
+        currentView="show-all";
+        sortingFunction=(x,y)=>{
+            let x1=JSON.parse(localStorage[x]).date,y1=JSON.parse(localStorage[y]).date;
+            if(x1>y1)
+                return -1;
+            if(x1==y1)
+                return 0;
+            return 1;
+        }
     }
 
     reloadList();
 })
 
 function reloadList(){
-    if(currentView=="filter")filterElementsAndShow();
+    console.log("Reloading List");
+    
+
+    if(currentView=="filter"){
+        filterElementsAndShow();
+    }
     if(currentView=="show-all"){
-        (document.querySelector('.button-show-all') as HTMLButtonElement).click();
+        undoShowAll();
         (document.querySelector('.button-show-all') as HTMLButtonElement).click()
     }
     if(currentView=='search')
@@ -412,8 +438,9 @@ function showTaskHighlight(objStorage:objStorage,searchString:string)
     
     objStorage['subtask']!.forEach((value:[string,string])=>{
         let highlight=`${value[0]}`;
-        if(highlight.indexOf(searchString)!=-1)
+        if(highlight.indexOf(searchString)!=-1){
             highlight=highlight.split(searchString).join("<span style='background-color: yellow;'>"+searchString+"</span>")
+        }
         const subtaskelem=`
         <div class="task-text">
             ${highlight}
@@ -437,6 +464,8 @@ function showTaskHighlight(objStorage:objStorage,searchString:string)
     document.querySelector('.tasks-list')!.append(addElem);
     checkbox.addEventListener("click",checkboxHandle);
 }
+
+//Min date validation
 document.getElementById("new-task-date")?.setAttribute('min',(new Date()).toISOString().split('T')[0]);
 
 
