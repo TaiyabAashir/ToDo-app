@@ -1,86 +1,99 @@
-.top-nav-bar{
-    display: flex;
-    background-color: #db4c3f;
-    /* width: 2000px; */
-    align-items: center;
-    flex-shrink: 0;
-    border-bottom: 1px solid transparent;
-    background-color: #db4c3f;    
-    height: 44px;
-    color:white;
+.top-section {
+  position: sticky;
+  top: 0;
 }
-.add-task-div{
-    margin-left: auto;
-    background: none;
-    color: white;
-}
-.top-nav-bar input{
-    transition: width .2s ease-in ; background :.15s cubic-bezier(.4,0,.2,1);
-    margin-left: 20px;
-    height: 1.5rem;
-    border-radius: 20px;
-    border-style: solid;
-    padding-left: 5px;
-}
-.top-nav-bar input:focus{
-    width: 20rem;
-}
-
-.add-task-button{
-    background: none;
-    color: white;
-    border-radius: 15px;
-    background: #0080ff;
-    padding: 8px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-main>:last-child{
-    margin-top: 20px;
-}
-main{
-    margin-left: 10%;
-}
-.heading{
-    text-align: center;
-    font-size: x-large;
-}
-body{
-    margin: 0px;
-}
-.options-row{
-    display: flex;
-}
-
-button{
-    background: none;
-    border-style: none;
-    cursor: pointer;
-}
-.sort-button:div>button:hover{
-    background-color: #eee;
-}
-.sort-button-div>button{
-    display: flex;;
-    align-items: center;
+.top-nav-bar {
+  display: flex;
+  background-color: #db4c3f;
+  /* width: 2000px; */
+  align-items: center;
+  flex-shrink: 0;
+  border-bottom: 1px solid transparent;
+  background-color: #db4c3f;
+  height: 44px;
+  box-shadow: 0 3px 10px;
+  z-index: 10;
+  position: relative;
 
 }
-.right-align{
-    margin-left: auto;
-    margin-right: 10%;
-    display: flex;
+.add-task-div {
+  margin-left: auto;
+  background: none;
+  color: white;
 }
-.options-row{
-    margin-left: 10px;
-    margin-right: 10px;
+.top-nav-bar input {
+  transition: width 0.2s ease-in;
+  background: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 20px;
+  height: 1.5rem;
+  border-radius: 20px;
+  border-style: solid;
+  padding-left: 5px;
+}
+.top-nav-bar input:focus {
+  width: 20rem;
 }
 
+.add-task-button {
+  background: none;
+  color: white;
+  border-radius: 15px;
+  background: #0080ff;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-style: solid;
+  border-color: transparent;
+}
+main > :last-child {
+  margin-top: 20px;
+}
+main {
+  margin-left: 10%;
+}
+.heading {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 20px 0 20px 0;
+}
+body {
+  margin: 0px;
+}
+.options-row {
+  display: flex;
+}
+
+button {
+  background: none;
+  border-style: none;
+  cursor: pointer;
+}
+.sort-button-div > button:hover {
+  background-color: #eee;
+}
+.sort-button-div > button {
+  display: flex;
+  align-items: center;
+}
+.right-align {
+  margin-left: auto;
+  margin-right: 10%;
+  display: flex;
+  text-align: center;
+  margin-top: 8px;
+}
+.options-row {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
 .task,
 .create-sub-task {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
+  overflow-wrap: break-word;
 }
 .create-sub-task {
   margin-left: 2rem;
@@ -101,8 +114,6 @@ button{
 }
 .date-filter {
   font-size: 1.5em;
-  margin-top: 1em;
-  margin-bottom: 1em;
   margin-right: 1em;
 }
 .main-task {
@@ -116,88 +127,150 @@ button{
   cursor: pointer;
   border-style: solid;
   border-width: 1px;
-
 }
 .main-task:hover {
   background-color: blanchedalmond;
-  
-
-
-}
-.add-more-button {
-  display: none;
 }
 
 .create-task {
-    margin-bottom: 80px;
-    min-height: 300px;
-    width: 900px;
-    border-radius: 20px;
-    border-style: solid;
-    display: flex;
-    flex-direction: column;
-    padding-left: 1rem;
-    background-color: white;
-  }
-  
-  .button-container {
-    margin-top: auto;
-    margin-bottom: 2rem;
-    width: fit-content;
-  }
-  
-  .subtasks-container {
-    display: none;
-    margin-bottom: 20px;
-  }
-  .modal input[type="text"] {
-    width: 35rem;
-    height: 2rem;
-    margin-right: 5px;
-    border-style: solid;
-    border-color: black;
-    border-radius: 5px;
-    outline: none;
-    content: "Hi";
-  }
-  .modal input[type="text"]:focus::placeholder {
-    color: transparent;
-  }
-  .add-main-task,
-  .add-sub-task {
-    margin-top: 10px;
-  }
-  .add-sub-task {
-    margin-left: 2rem;
-  }
-  .modal{
-      position: fixed;
-      top:0px;
-      height: 100%;
-      width: 100%;
-      padding-top: 10%;
-      padding-left: 10%;
-      background: rgba(0,0,0,0.4);
-      display: none;
-  }
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 300px;
+  max-height: 70%;
+  width: 900px;
+  border-radius: 20px;
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  background-color: white;
+  overflow: scroll;
+}
 
-  input[type="text"],select,option{
-      outline: none;
-  }
+.button-container {
+  margin-top: auto;
+  margin-bottom: 2rem;
+  width: fit-content;
+}
 
-  .create-sub-task::before{
-        content: '⬤ ';
-        font-size: x-small;
-  }
-  .modal button:hover{
-    background-color: #eee;
+.subtasks-container {
+  display: none;
+  margin-bottom: 20px;
+}
+.modal input[type="text"] {
+  width: 35rem;
+  height: 2rem;
+  margin-right: 5px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 5px;
+  outline: none;
+}
+.modal input[type="text"]:focus::placeholder {
+  color: transparent;
+}
+.add-main-task input[type="text"] {
+  width: 37rem;
+}
 
-  }
-  .button-show-all{
-    color: grey;
-  }
-  .show-all-active{
-    font-weight: bold;
-    color: black;
-  }
+.add-main-task,
+.add-sub-task {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+.add-sub-task {
+  margin-left: 2rem;
+  margin-top: 10px;
+}
 
+
+
+
+.modal {
+  position: fixed;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+input[type="text"],
+select,
+option {
+  outline: none;
+}
+
+.create-sub-task::before {
+  content: "⬤ ";
+  font-size: x-small;
+}
+.modal button:hover {
+  background-color: #eee;
+}
+.button-show-all {
+  color: grey;
+}
+.show-all-active {
+  font-weight: bold;
+  color: black;
+}
+.top-nav-bar > div:first-child {
+  margin-left: 10px;
+}
+select {
+  margin-left: 10px;
+}
+.modal-top {
+  display: flex;
+}
+.close-button-div {
+  margin-left: auto;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+#reset,
+#done {
+  color: white;
+  border-radius: 10px;
+  background: #0080ff;
+  margin-left: 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: transparent;
+}
+#reset:hover,
+#done:hover,
+.add-task-button:hover {
+  border-color: black;
+}
+
+.modal button:hover {
+  background-color: transparent;
+}
+
+.add-more-button,
+.remove-more-button{
+  margin-top: 5px;
+}
+
+main {
+  padding-bottom: 10px;
+}
+.options-row{
+  z-index: 1;
+  background-color: white;
+  padding-left: 10%;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  /* box-shadow: 0px 10px 10px -10px; */
+}
+
+.heading{
+  margin-left: auto;
+  margin-right: auto;
+}
