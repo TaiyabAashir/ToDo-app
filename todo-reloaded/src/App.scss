@@ -1,9 +1,7 @@
-@charset "UTF-8";
 .top-section {
   position: sticky;
   top: 0;
 }
-
 .top-nav-bar {
   display: flex;
   background-color: #db4c3f;
@@ -16,20 +14,20 @@
   box-shadow: 0 3px 10px;
   z-index: 10;
   position: relative;
-}
-.top-nav-bar input {
-  transition: width 0.2s ease-in;
-  background: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-left: 20px;
-  height: 1.5rem;
-  border-radius: 20px;
-  border-style: solid;
-  padding-left: 5px;
-}
-.top-nav-bar input :focus {
-  width: 20rem;
-}
+  input {
+    transition: width 0.2s ease-in;
+    background: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: 20px;
+    height: 1.5rem;
+    border-radius: 20px;
+    border-style: solid;
+    padding-left: 5px;
+    :focus {
+      width: 20rem;
+    }
+  }
 
+}
 .add-task-div {
   margin-left: auto;
   background: none;
@@ -50,11 +48,10 @@
 
 main {
   margin-left: 10%;
+  >:last-child{
+    margin-top: 20px;
+  }
 }
-main > :last-child {
-  margin-top: 20px;
-}
-
 .heading {
   text-align: center;
   font-size: 3rem;
@@ -65,7 +62,6 @@ main > :last-child {
 body {
   margin: 0px;
 }
-
 .options-row {
   display: flex;
 }
@@ -75,15 +71,13 @@ button {
   border-style: none;
   cursor: pointer;
 }
-
 .sort-button-div > button {
   display: flex;
   align-items: center;
+  :hover {
+    background-color: #eee;
+  }
 }
-.sort-button-div > button :hover {
-  background-color: #eee;
-}
-
 .right-align {
   margin-left: auto;
   margin-right: 10%;
@@ -91,7 +85,6 @@ button {
   text-align: center;
   margin-top: 8px;
 }
-
 .options-row {
   margin-left: 10px;
   margin-right: 10px;
@@ -104,34 +97,27 @@ button {
   margin-top: 10px;
   overflow-wrap: break-word;
 }
-
 .create-sub-task {
   margin-left: 2rem;
   min-width: 28rem;
 }
-
 .delete-button {
   margin-left: auto;
 }
-
 :checked + div {
   text-decoration: line-through;
 }
-
-.tasks-list input[type=checkbox] {
+.tasks-list input[type="checkbox"] {
   visibility: hidden;
 }
-
 .task:hover > input,
 .create-sub-task:hover > input {
   visibility: visible;
 }
-
 .date-filter {
   font-size: 1.5em;
   margin-right: 1em;
 }
-
 .main-task {
   /* width: 80%; */
   margin-right: 10%;
@@ -144,7 +130,6 @@ button {
   border-style: solid;
   border-width: 1px;
 }
-
 .main-task:hover {
   background-color: blanchedalmond;
 }
@@ -175,8 +160,7 @@ button {
   /* display: none; */
   margin-bottom: 20px;
 }
-
-.modal input[type=text] {
+.modal input[type="text"] {
   width: 35rem;
   height: 2rem;
   margin-right: 5px;
@@ -184,12 +168,11 @@ button {
   border-color: black;
   border-radius: 5px;
   outline: none;
+  :focus::placeholder {
+    color: transparent;
+  }
 }
-.modal input[type=text] :focus::placeholder {
-  color: transparent;
-}
-
-.add-main-task input[type=text] {
+.add-main-task input[type="text"] {
   width: 37rem;
 }
 
@@ -199,7 +182,6 @@ button {
   display: flex;
   align-items: center;
 }
-
 .add-sub-task {
   margin-left: 2rem;
   margin-top: 10px;
@@ -208,14 +190,14 @@ button {
 .modal {
   position: fixed;
   top: 0px;
-  left: 0px;
+  left:0px;
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
   /* display: none; */
 }
 
-input[type=text],
+input[type="text"],
 select,
 option {
   outline: none;
@@ -225,39 +207,31 @@ option {
   content: "⬤ ";
   font-size: x-small;
 }
-
 .modal button:hover {
   background-color: #eee;
 }
-
 .button-show-all {
   color: grey;
 }
-
 .show-all-active {
   font-weight: bold;
   color: black;
 }
-
 .top-nav-bar > div:first-child {
   margin-left: 10px;
 }
-
 select {
   margin-left: 10px;
 }
-
 .modal-top {
   display: flex;
 }
-
 .close-button-div {
   margin-left: auto;
   margin-right: 20px;
   display: flex;
   align-items: center;
 }
-
 #reset,
 #done {
   color: white;
@@ -269,7 +243,6 @@ select {
   border-style: solid;
   border-color: transparent;
 }
-
 #reset:hover,
 #done:hover,
 .add-task-button:hover {
@@ -281,15 +254,14 @@ select {
 }
 
 .add-more-button,
-.remove-more-button {
+.remove-more-button{
   margin-top: 5px;
 }
 
 main {
   padding-bottom: 10px;
 }
-
-.options-row {
+.options-row{
   z-index: 1;
   background-color: white;
   padding-left: 10%;
@@ -298,9 +270,7 @@ main {
   /* box-shadow: 0px 10px 10px -10px; */
 }
 
-.heading {
+.heading{
   margin-left: auto;
   margin-right: auto;
 }
-
-/*# sourceMappingURL=App.css.map */
